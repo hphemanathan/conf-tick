@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Header from './components/Header/Header'
 import Heading from './components/Heading/Heading'
+import Form from './components/Form/Form'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <>
       <Header/>
       <Heading/>
+      <Form/>
     </>
   )
 }
