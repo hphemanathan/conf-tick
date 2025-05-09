@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 function Form() {
 
+  const [image, setImage] = React.useState(null)
 
   const {register, handleSubmit, getValues, formState: {errors}} = useForm()
 
@@ -31,6 +32,13 @@ function Form() {
            const files = event.dataTransfer.files
            console.log(files)
          };
+
+         const handleImageUpload = (event) => {
+          setImage (URL.createObjectURL(event.target.files[0]))
+          // console.log(setImage)
+         }
+
+         console.log(image)
   //  console.log(errors)
 
   return (
@@ -42,33 +50,55 @@ function Form() {
         })}>
         <div>
           <div className=''>
-            <label htmlFor={ID_Avatar} 
-            onDragEnter={handleDragEnter}
-            onDragOver={handleDragOver}
-            // onDrageLeave={handleDragLeave}
-            onDrop={handleDrop}
-            >
-              upload Avatar
-              <img src='src/assets/icon-upload.svg' alt='' />
-              <p>Drag and drop or click to upload</p>
-            </label>
+            {image ? (
+              <div className=''>
+                <img src={image} alt='preview' />
+                <button onClick={() => setImage(null)}>Remove Image</button>
+                <button></button>
+                <label htmlFor={ID_Avatar}>Change Image</label>
+                <input
+                  className='opacity-0'
+                  type='file'
+                  id={ID_Avatar}
+                  accept='image/png, image/jpeg'
+                  onChange={handleImageUpload} />
+              </div>
+            ) : (
+              <div className=''>
+                <label
+                  htmlFor={ID_Avatar}
+                  onDragEnter={handleDragEnter}
+                  onDragOver={handleDragOver}
+                  // onDrageLeave={handleDragLeave}
+                  onDrop={handleDrop}>
+                  upload Avatar
+                  <img src='src/assets/icon-upload.svg' alt='' />
+                  <p>Drag and drop or click to upload</p>
+                </label>
 
-            <input
-              className='opacity-0'
-              type='file'
-              id={ID_Avatar}
-              {...register("avatar", { required: "Please upload your image" })}
-              accept='image/png, image/jpeg'
-            />
+                <input
+                  className='opacity-0'
+                  type='file'
+                  id={ID_Avatar}
+                  {...register("avatar", {
+                    required: "Please upload your image",
+                  })}
+                  accept='image/png, image/jpeg'
+                  onChange={handleImageUpload}
+                />
+              </div>
+            )}
           </div>
           {/* <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple></input> */}
           <div className='flex'>
-            {errors.avatar ? <p>Upload you image</p> :
+            {errors.avatar ? (
+              <p>Upload you image</p>
+            ) : (
               <div className=''>
                 <img src='src/assets/icon-info.svg' alt='info' />
                 <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
               </div>
-            }
+            )}
           </div>
         </div>
         <label htmlFor={ID_FullName}>Full Name</label>
