@@ -1,50 +1,83 @@
 import React from 'react';
-import ImageUpload from '../ImageUpload/ImageUpload';
-import FullName from '../FullName/FullName';
-import EmailAddress from '../EmailAddress/EmailAddress';
+import { useForm } from 'react-hook-form';
+
 
 function Form() {
-  const [fullName, setFullName] = React.useState('')
-   const [emailAdress, setEmailAddress] = React.useState('')
+
+
+  const {register, handleSubmit, getValues, formState: {errors}} = useForm()
 
    const id = React.useId();
 
    const ID_FullName = `${id} Full Name`
-    const ID_Name = `${id} Name`;
+    const ID_Avatar = `${id} Avatar `;
    const ID_Email = `${id} Email`
+   const ID_GitHubUserName = `${id} GitHub Username`;
+
+   const handleDragEnter = (event) => {
+    event.preventDefault();
+   }
+
+     const handleDragOver = (event) => {
+       event.preventDefault();
+     };
+
+      //  const handleDragEnter = (event) => {
+      //    event.preventDefault();
+      //  };
+
+         const handleDrop = (event) => {
+           event.preventDefault();
+           const files = event.dataTransfer.files
+           console.log(files)
+         };
+  //  console.log(errors)
 
   return (
     <div>
       <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          console.log("working");
-        }}>
+        onSubmit={handleSubmit((data) => {
+          // event.preventDefault();
+          console.log(JSON.stringify(data));
+        })}>
         <div>
-          <label htmlFor='Avatar'>upload Avatar</label>
-          <input
-            type='file'
-            id='Avatar'
-            name='Avatar'
-            accept='image/png, image/jpeg'
-          />
+          <div className=''>
+            <label htmlFor={ID_Avatar} 
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            // onDrageLeave={handleDragLeave}
+            onDrop={handleDrop}
+            >
+              upload Avatar
+              <img src='src/assets/icon-upload.svg' alt='' />
+              <p>Drag and drop or click to upload</p>
+            </label>
+
+            <input
+              className='opacity-0'
+              type='file'
+              id={ID_Avatar}
+              {...register("avatar", { required: "Please upload your image" })}
+              accept='image/png, image/jpeg'
+            />
+          </div>
+          {/* <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple></input> */}
           <div className='flex'>
-            <img src='src/assets/icon-info.svg' alt='info' />
-            <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
+            {errors.avatar ? <p>Upload you image</p> :
+              <div className=''>
+                <img src='src/assets/icon-info.svg' alt='info' />
+                <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
+              </div>
+            }
           </div>
         </div>
         <label htmlFor={ID_FullName}>Full Name</label>
         <input
-          value={fullName}
-          onChange={(event) => {
-            setFullName(event.target.value);
-          }}
           type='text'
           id={ID_FullName}
-          required={true}
+          {...register("fullName", { required: "Please enter your full name" })}
         />
-
-        
+        <p>{errors.fullName?.message}</p>
 
         <label htmlFor={ID_Email}>Email Address</label>
         <input
@@ -52,13 +85,26 @@ function Form() {
           id={ID_Email}
           type='email'
           placeholder='example@email.com'
-          value={emailAdress}
-          onChange={(event) => {
-            setEmailAddress(event.target.value);
-          }}
-          required={true}
+          {...register("emailAddress", {
+            required: "Please enter your email address",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Please enter valid address",
+            },
+          })}
         />
-        <button role='submit'>Submit</button>
+        <p>{errors.emailAddress?.message} </p>
+        <label htmlFor={ID_GitHubUserName}>GitHub Username</label>
+        <input
+          id={ID_GitHubUserName}
+          type='text'
+          placeholder='@yourusername'
+          {...register("gitHubUserName", {
+            required: "Please enter your GitHub user name",
+          })}
+        />
+        <p>{errors.gitHubUserName?.message}</p>
+        <button role='submit'>Generate My Ticket</button>
       </form>
     </div>
   );
