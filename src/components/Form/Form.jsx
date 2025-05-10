@@ -2,9 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 
-function Form() {
+function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, setIsSubmit}) {
 
-  const [image, setImage] = React.useState(null)
+  // const [image, setImage] = React.useState(null)
 
   const {register, handleSubmit, getValues, formState: {errors}} = useForm()
 
@@ -31,6 +31,7 @@ function Form() {
            event.preventDefault();
            const files = event.dataTransfer.files
            console.log(files)
+
          };
 
          const handleImageUpload = (event) => {
@@ -46,7 +47,15 @@ function Form() {
       <form
         onSubmit={handleSubmit((data) => {
           // event.preventDefault();
-          console.log(JSON.stringify(data));
+          console.log()
+          console.log(JSON.stringify(data.emailAddress));
+          // console.log(JSON.stringify(data));
+          setFullName(data.fullName)
+          setEmail(data.emailAddress);
+          setUserName(data.gitHubUserName)
+          setIsSubmit(!isSubmit)
+          
+          // console.log(setFullName)
         })}>
         <div>
           <div className=''>
@@ -54,7 +63,7 @@ function Form() {
               <div className=''>
                 <img src={image} alt='preview' />
                 <button onClick={() => setImage(null)}>Remove Image</button>
-                <button></button>
+                
                 <label htmlFor={ID_Avatar}>Change Image</label>
                 <input
                   className='opacity-0'
