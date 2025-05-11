@@ -2,9 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 
+
+
+
 function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, setIsSubmit}) {
 
   // const [image, setImage] = React.useState(null)
+  const [file, setFile] = React.useState(null)
 
   const {register, handleSubmit, getValues, formState: {errors}} = useForm()
 
@@ -35,10 +39,23 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
          };
 
          const handleImageUpload = (event) => {
-          setImage (URL.createObjectURL(event.target.files[0]))
-          // console.log(setImage)
+         
+         setFile(event.target.files[0])  
+
+         if (
+           event.target.files[0].size <= 500000 &&
+           event.target.files[0].type === "image/jpeg" ||
+           event.target.files[0].type === "image/png"
+         ) {
+           setImage(URL.createObjectURL(event.target.files[0]));
          }
 
+            
+          
+          
+           
+         }
+         console.log(file)
          console.log(image)
   //  console.log(errors)
 
@@ -47,14 +64,14 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
       <form
         onSubmit={handleSubmit((data) => {
           // event.preventDefault();
-          console.log()
+          console.log();
           console.log(JSON.stringify(data.emailAddress));
           // console.log(JSON.stringify(data));
-          setFullName(data.fullName)
+          setFullName(data.fullName);
           setEmail(data.emailAddress);
-          setUserName(data.gitHubUserName)
-          setIsSubmit(!isSubmit)
-          
+          setUserName(data.gitHubUserName);
+          setIsSubmit(!isSubmit);
+
           // console.log(setFullName)
         })}>
         <div>
@@ -63,14 +80,15 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
               <div className=''>
                 <img src={image} alt='preview' />
                 <button onClick={() => setImage(null)}>Remove Image</button>
-                
+
                 <label htmlFor={ID_Avatar}>Change Image</label>
                 <input
                   className='opacity-0'
                   type='file'
                   id={ID_Avatar}
                   accept='image/png, image/jpeg'
-                  onChange={handleImageUpload} />
+                  onChange={handleImageUpload}
+                />
               </div>
             ) : (
               <div className=''>
@@ -89,9 +107,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                   className='opacity-0'
                   type='file'
                   id={ID_Avatar}
-                  {...register("avatar", {
-                    required: "Please upload your image",
-                  })}
+                  {...register("avatar")}
                   accept='image/png, image/jpeg'
                   onChange={handleImageUpload}
                 />
@@ -100,14 +116,21 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
           </div>
           {/* <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple></input> */}
           <div className='flex'>
-            {errors.avatar ? (
-              <p>Upload you image</p>
+            {file?.size > 500000 ? (
+              <div className='flex'>
+                <img src='src\assets\icon-info.svg' alt='info' />
+                <p>File too large. Please upload a photo under 500KB.</p>
+              </div>
             ) : (
               <div className=''>
                 <img src='src/assets/icon-info.svg' alt='info' />
                 <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
               </div>
             )}
+            
+            {errors.avatar && 
+              <p>{errors.avatar.message}</p>
+            }
           </div>
         </div>
         <label htmlFor={ID_FullName}>Full Name</label>
