@@ -100,8 +100,8 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                     // onDrageLeave={handleDragLeave}
                     onDrop={handleDrop}>
                     <p className='mb-3'>upload Avatar</p>
-                    <div className='border-dotted border-red-500 border-2 rounded-xl'>
-                      <img className='mt-5 mx-auto mb-4' src='src/assets/icon-upload.svg' alt='' />
+                    <div className='border-dashed border-red-500 border-2 rounded-xl'>
+                      <img className='mt-5 mx-auto mb-4 border-solid border-amber-600 border-2 p-3' src='src/assets/icon-upload.svg' alt='' />
                       <p className='mx-auto text-center mb-5'>Drag and drop or click to upload</p>
                     </div>
                   </label>
