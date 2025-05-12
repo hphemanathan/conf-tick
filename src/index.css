@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+:root {
+  --margin-top-header: clamp(
+    2rem,
+    1.823943661971831rem + 0.7511737089201878vw,
+    2.5rem
+  );
+  --margin-bottom-header: clamp(
+    2.5rem,
+    2.0598591549295775rem + 1.8779342723004695vw,
+    3.75rem
+  );
+  --width-heading: clamp(343px, 90%, 890px);
+  --font-size-heading: clamp(
+    1.875rem,
+    1.214788732394366rem + 2.8169014084507045vw,
+    3.75rem
+  );
+
+  --width-form: clamp(343px, 90%, 460px);
+}
+
 body {
   color: white;
   font-size: 20px;

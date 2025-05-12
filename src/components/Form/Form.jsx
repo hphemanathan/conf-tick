@@ -60,7 +60,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
   //  console.log(errors)
 
   return (
-    <div>
+    <div className='w-(--width-form) mx-auto'>
       <form
         onSubmit={handleSubmit((data) => {
           // event.preventDefault();
@@ -75,7 +75,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
           // console.log(setFullName)
         })}>
         <div>
-          <div className=''>
+          <div>
             {image ? (
               <div className=''>
                 <img src={image} alt='preview' />
@@ -91,18 +91,21 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                 />
               </div>
             ) : (
-              <div className=''>
-                <label
-                  htmlFor={ID_Avatar}
-                  onDragEnter={handleDragEnter}
-                  onDragOver={handleDragOver}
-                  // onDrageLeave={handleDragLeave}
-                  onDrop={handleDrop}>
-                  upload Avatar
-                  <img src='src/assets/icon-upload.svg' alt='' />
-                  <p>Drag and drop or click to upload</p>
-                </label>
-
+              <div>
+                <div >
+                  <label
+                    htmlFor={ID_Avatar}
+                    onDragEnter={handleDragEnter}
+                    onDragOver={handleDragOver}
+                    // onDrageLeave={handleDragLeave}
+                    onDrop={handleDrop}>
+                    <p className='mb-3'>upload Avatar</p>
+                    <div className='border-dotted border-red-500 border-2 rounded-xl'>
+                      <img className='mt-5 mx-auto mb-4' src='src/assets/icon-upload.svg' alt='' />
+                      <p className='mx-auto text-center mb-5'>Drag and drop or click to upload</p>
+                    </div>
+                  </label>
+                </div>
                 <input
                   className='opacity-0'
                   type='file'
@@ -127,10 +130,8 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                 <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
               </div>
             )}
-            
-            {errors.avatar && 
-              <p>{errors.avatar.message}</p>
-            }
+
+            {errors.avatar && <p>{errors.avatar.message}</p>}
           </div>
         </div>
         <label htmlFor={ID_FullName}>Full Name</label>
