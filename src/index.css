@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  --color-neutral-900: hsl(248, 70%, 10%);
+  --color-neutral-700: hsl(245, 19%, 35%);
+  --color-neutral-500: hsl(245, 15%, 58%);
+  --color-neutral-300: hsl(252, 6%, 83%);
+  --color-neutral-100: rgba(255, 255, 255, 0.5);
+  --color-neutral-0: hsl(0, 0%, 100%);
+
+  --color-orange-700: hsl(7, 71%, 60%);
+  --color-orange-500: hsl(7, 88%, 67%);
+
+  --font-family: "Inconsolata", monospace;
+}
+
+@layer components {
+  .input {
+    @apply bg-amber-800;
+
+    .input.input {
+      @apply mt-3 mb-6 border-neutral-500 border-solid border-1 outline-1 outline-neutral-500;
+    }
+  }
+}
+
 :root {
   --margin-top-header: clamp(
     2rem,
@@ -24,4 +48,5 @@
 body {
   color: white;
   font-size: 20px;
+  /* font-family: "Inconsolata", monospace; */
 }

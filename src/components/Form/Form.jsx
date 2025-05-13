@@ -92,7 +92,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
               </div>
             ) : (
               <div>
-                <div >
+                <div>
                   <label
                     htmlFor={ID_Avatar}
                     onDragEnter={handleDragEnter}
@@ -100,14 +100,20 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                     // onDrageLeave={handleDragLeave}
                     onDrop={handleDrop}>
                     <p className='mb-3'>upload Avatar</p>
-                    <div className='border-dashed border-red-500 border-2 rounded-xl'>
-                      <img className='mt-5 mx-auto mb-4 border-solid border-amber-600 border-2 p-3' src='src/assets/icon-upload.svg' alt='' />
-                      <p className='mx-auto text-center mb-5'>Drag and drop or click to upload</p>
+                    <div className='border-dashed border-neutral-700 border-2 rounded-xl mb-3 bg-white/20'>
+                      <img
+                        className='mt-5 mx-auto mb-4 border-solid border-neutral-700 border-2 p-3 rounded-xl bg-neutral-700'
+                        src='src/assets/icon-upload.svg'
+                        alt=''
+                      />
+                      <p className='mx-auto text-center mb-5'>
+                        Drag and drop or click to upload
+                      </p>
                     </div>
                   </label>
                 </div>
                 <input
-                  className='opacity-0'
+                  className='opacity-0 absolute'
                   type='file'
                   id={ID_Avatar}
                   {...register("avatar")}
@@ -125,7 +131,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                 <p>File too large. Please upload a photo under 500KB.</p>
               </div>
             ) : (
-              <div className=''>
+              <div className='flex mb-6'>
                 <img src='src/assets/icon-info.svg' alt='info' />
                 <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
               </div>
@@ -134,15 +140,16 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
             {errors.avatar && <p>{errors.avatar.message}</p>}
           </div>
         </div>
-        <label htmlFor={ID_FullName}>Full Name</label>
+        <label className='input' htmlFor={ID_FullName}>Full Name</label><br />
         <input
+        className='mt-3 mb-6'
           type='text'
           id={ID_FullName}
           {...register("fullName", { required: "Please enter your full name" })}
         />
         <p>{errors.fullName?.message}</p>
 
-        <label htmlFor={ID_Email}>Email Address</label>
+        <label htmlFor={ID_Email}>Email Address</label><br />
         <input
           // pattern='.+@example\.com'
           id={ID_Email}
@@ -157,7 +164,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
           })}
         />
         <p>{errors.emailAddress?.message} </p>
-        <label htmlFor={ID_GitHubUserName}>GitHub Username</label>
+        <label htmlFor={ID_GitHubUserName}>GitHub Username</label><br />
         <input
           id={ID_GitHubUserName}
           type='text'
