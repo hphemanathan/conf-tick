@@ -100,7 +100,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                     // onDrageLeave={handleDragLeave}
                     onDrop={handleDrop}>
                     <p className='mb-3'>upload Avatar</p>
-                    <div className='border-dashed border-neutral-700 border-2 rounded-xl mb-3 bg-white/20'>
+                    <div className='border-dashed border-neutral-700 border-2 rounded-xl mb-3 bg-white/8'>
                       <img
                         className='mt-5 mx-auto mb-4 border-solid border-neutral-700 border-2 p-3 rounded-xl bg-neutral-700'
                         src='src/assets/icon-upload.svg'
@@ -116,7 +116,10 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                   className='opacity-0 absolute'
                   type='file'
                   id={ID_Avatar}
-                  {...register("avatar")}
+                  {...register("avatar",{
+                    required:"please upload the image"
+                  })}
+   
                   accept='image/png, image/jpeg'
                   onChange={handleImageUpload}
                 />
@@ -137,21 +140,26 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
               </div>
             )}
 
-            {errors.avatar && <p>{errors.avatar.message}</p>}
+            {/* {errors.avatar && <p>{errors.avatar.message}</p>} */}
           </div>
         </div>
-        <label className='input' htmlFor={ID_FullName}>Full Name</label><br />
+        <label className='input' htmlFor={ID_FullName}>
+          Full Name
+        </label>
+        <br />
         <input
-        className='mt-3 mb-6'
+          className={errors.fullName && "error"}
           type='text'
           id={ID_FullName}
           {...register("fullName", { required: "Please enter your full name" })}
         />
         <p>{errors.fullName?.message}</p>
 
-        <label htmlFor={ID_Email}>Email Address</label><br />
+        <label htmlFor={ID_Email}>Email Address</label>
+        <br />
         <input
           // pattern='.+@example\.com'
+          className={errors.emailAddress && "error"}
           id={ID_Email}
           type='email'
           placeholder='example@email.com'
@@ -164,8 +172,10 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
           })}
         />
         <p>{errors.emailAddress?.message} </p>
-        <label htmlFor={ID_GitHubUserName}>GitHub Username</label><br />
+        <label htmlFor={ID_GitHubUserName}>GitHub Username</label>
+        <br />
         <input
+          className={errors.gitHubUserName && "error"}
           id={ID_GitHubUserName}
           type='text'
           placeholder='@yourusername'

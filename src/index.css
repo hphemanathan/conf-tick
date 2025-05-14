@@ -15,12 +15,20 @@
 }
 
 @layer components {
-  .input {
-    @apply bg-amber-800;
+  input {
+    @apply mt-3 mb-6 border-neutral-500 border-solid border-1 outline-1 outline-neutral-500 w-full rounded-xl py-4 pl-4 bg-white/8;
+  }
 
-    .input.input {
-      @apply mt-3 mb-6 border-neutral-500 border-solid border-1 outline-1 outline-neutral-500;
-    }
+  input:focus {
+    @apply bg-white/20 outline-neutral-500 outline-3 outline-offset-4;
+  }
+
+  /* input:required {
+    @apply border-red-600;
+  } */
+
+  input.error {
+    @apply border-red-600 outline-none;
   }
 }
 
