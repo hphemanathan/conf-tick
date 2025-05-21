@@ -74,10 +74,10 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
 
           // console.log(setFullName)
         })}>
-        <div>
+        <div className='form_input'>
           <div>
             {image ? (
-              <div className=''>
+              <div>
                 <img src={image} alt='preview' />
                 <button onClick={() => setImage(null)}>Remove Image</button>
 
@@ -91,35 +91,35 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                 />
               </div>
             ) : (
-              <div>
-                <div>
+              <div >
+                <div className=''>
                   <label
+                    className='inline-block w-full'
                     htmlFor={ID_Avatar}
                     onDragEnter={handleDragEnter}
                     onDragOver={handleDragOver}
                     // onDrageLeave={handleDragLeave}
                     onDrop={handleDrop}>
                     <p className='mb-3'>upload Avatar</p>
-                    <div className='border-dashed border-neutral-700 border-2 rounded-xl mb-3 bg-white/8'>
+                    <div className='border-dashed border-neutral-700 border-2 rounded-xl  bg-white/8 w-full'>
                       <img
                         className='mt-5 mx-auto mb-4 border-solid border-neutral-700 border-2 p-3 rounded-xl bg-neutral-700'
                         src='src/assets/icon-upload.svg'
                         alt=''
                       />
-                      <p className='mx-auto text-center mb-5'>
+                      <p className='mx-auto text-center mb-5 text-(length:--text-preset-600)'>
                         Drag and drop or click to upload
                       </p>
                     </div>
                   </label>
                 </div>
                 <input
-                  className='opacity-0 absolute'
+                  className='opacity-0 absolute -z-10 p-0'
                   type='file'
                   id={ID_Avatar}
-                  {...register("avatar",{
-                    required:"please upload the image"
+                  {...register("avatar", {
+                    required: "please upload the image",
                   })}
-   
                   accept='image/png, image/jpeg'
                   onChange={handleImageUpload}
                 />
@@ -131,59 +131,76 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
             {file?.size > 500000 ? (
               <div className='flex'>
                 <img src='src\assets\icon-info.svg' alt='info' />
-                <p>File too large. Please upload a photo under 500KB.</p>
+                <p className='error'>
+                  File too large. Please upload a photo under 500KB.
+                </p>
               </div>
             ) : (
-              <div className='flex mb-6'>
-                <img src='src/assets/icon-info.svg' alt='info' />
-                <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
+              <div className='flex w-full mb-6'>
+                <img
+                  className='mr-2'
+                  src='src/assets/icon-info.svg'
+                  alt='info'
+                />
+                <p className='text-(length:--text-preset-700)'>
+                  Upload your photo (JPG or PNG, max size: 500KB).
+                </p>
               </div>
             )}
 
             {/* {errors.avatar && <p>{errors.avatar.message}</p>} */}
           </div>
         </div>
-        <label className='input' htmlFor={ID_FullName}>
-          Full Name
-        </label>
-        <br />
-        <input
-          className={errors.fullName && "error"}
-          type='text'
-          id={ID_FullName}
-          {...register("fullName", { required: "Please enter your full name" })}
-        />
-        <p>{errors.fullName?.message}</p>
-
-        <label htmlFor={ID_Email}>Email Address</label>
-        <br />
-        <input
-          // pattern='.+@example\.com'
-          className={errors.emailAddress && "error"}
-          id={ID_Email}
-          type='email'
-          placeholder='example@email.com'
-          {...register("emailAddress", {
-            required: "Please enter your email address",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Please enter valid address",
-            },
-          })}
-        />
-        <p>{errors.emailAddress?.message} </p>
-        <label htmlFor={ID_GitHubUserName}>GitHub Username</label>
-        <br />
-        <input
-          className={errors.gitHubUserName && "error"}
-          id={ID_GitHubUserName}
-          type='text'
-          placeholder='@yourusername'
-          {...register("gitHubUserName", {
-            required: "Please enter your GitHub user name",
-          })}
-        />
-        <p>{errors.gitHubUserName?.message}</p>
+        <div className='form_input'>
+          <label className='input' htmlFor={ID_FullName}>
+            Full Name
+          </label>
+          <br />
+          <input
+            className={errors.fullName && "error"}
+            type='text'
+            id={ID_FullName}
+            {...register("fullName", {
+              required: "Please enter your full name",
+            })}
+          />
+          <p className='error'>{errors.fullName?.message}</p>
+        </div>
+        <div className='form_input'>
+          <label htmlFor={ID_Email}>Email Address</label>
+          <br />
+          <input
+            // pattern='.+@example\.com'
+            className={errors.emailAddress && "error"}
+            id={ID_Email}
+            type='email'
+            placeholder='example@email.com'
+            {...register("emailAddress", {
+              required: "Please enter your email address",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Please enter valid address",
+              },
+            })}
+          />
+          <p className='error'>{errors.emailAddress?.message} </p>
+        </div>
+        <div className='form_input'>
+          <label htmlFor={ID_GitHubUserName}>GitHub Username</label>
+          <br />
+          <input
+            className={errors.gitHubUserName && "error"}
+            id={ID_GitHubUserName}
+            type='text'
+            placeholder='@yourusername'
+            {...register("gitHubUserName", {
+              required: "Please enter your GitHub user name",
+            })}
+          />
+          {errors.gitHubUserName && (
+            <p className='error'>{errors.gitHubUserName?.message}</p>
+          )}
+        </div>
         <button role='submit'>Generate My Ticket</button>
       </form>
     </div>

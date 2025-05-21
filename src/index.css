@@ -12,13 +12,27 @@
   --color-orange-500: hsl(7, 88%, 67%);
 
   --font-family: "Inconsolata", monospace;
+
+  --text-preset-500: 20px;
+  --text-preset-600: 18px;
+  --text-preset-700: 12px;
 }
 
 @layer components {
-  input {
-    @apply mt-3 mb-6 border-neutral-500 border-solid border-1 outline-1 outline-neutral-500 w-full rounded-xl py-4 pl-4 bg-white/8;
+  .form_input {
+    @apply mb-6;
+  }
+  label {
+    @apply inline-block mb-3 text-(length:--text-preset-500);
   }
 
+  input {
+    @apply border-neutral-500 border-solid border-1 outline-1 outline-neutral-500 w-full rounded-xl py-4 pl-4 bg-white/8;
+  }
+
+  input + p {
+    @apply mt-3;
+  }
   input:focus {
     @apply bg-white/20 outline-neutral-500 outline-3 outline-offset-4;
   }
@@ -29,6 +43,14 @@
 
   input.error {
     @apply border-red-600 outline-none;
+  }
+
+  .error {
+    @apply text-red-600;
+  }
+
+  input::placeholder {
+    @apply text-neutral-300;
   }
 }
 
