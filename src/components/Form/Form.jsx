@@ -60,7 +60,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
   //  console.log(errors)
 
   return (
-    <div className='w-(--width-form) mx-auto'>
+    <div className='w-(--width-form) mx-auto mb-28'>
       <form
         onSubmit={handleSubmit((data) => {
           // event.preventDefault();
@@ -74,7 +74,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
 
           // console.log(setFullName)
         })}>
-        <div className='form_input'>
+        <div role='input' className='form_input'>
           <div>
             {image ? (
               <div>
@@ -91,7 +91,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
                 />
               </div>
             ) : (
-              <div >
+              <div>
                 <div className=''>
                   <label
                     className='inline-block w-full'
@@ -129,14 +129,18 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
           {/* <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple></input> */}
           <div className='flex'>
             {file?.size > 500000 ? (
-              <div className='flex'>
-                <img src='src\assets\icon-info.svg' alt='info' />
+              <div className='flex w-full'>
+                <img
+                  src='src\assets\icon-info.svg'
+                  alt='info'
+                  className='mr-2 info'
+                />
                 <p className='error'>
                   File too large. Please upload a photo under 500KB.
                 </p>
               </div>
             ) : (
-              <div className='flex w-full mb-6'>
+              <div className='flex w-full'>
                 <img
                   className='mr-2'
                   src='src/assets/icon-info.svg'
@@ -201,7 +205,7 @@ function Form({image, setImage, setFullName, setEmail,setUserName, isSubmit, set
             <p className='error'>{errors.gitHubUserName?.message}</p>
           )}
         </div>
-        <button role='submit'>Generate My Ticket</button>
+        <button className='button' role='submit'>Generate My Ticket</button>
       </form>
     </div>
   );

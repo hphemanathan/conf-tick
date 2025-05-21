@@ -46,11 +46,20 @@
   }
 
   .error {
-    @apply text-red-600;
+    @apply text-red-600 text-(length:--text-preset-700);
   }
 
   input::placeholder {
     @apply text-neutral-300;
+  }
+
+  .info {
+    filter: brightness(0) saturate(100%) invert(14%) sepia(67%) saturate(7364%)
+      hue-rotate(352deg) brightness(86%) contrast(113%);
+  }
+
+  .button {
+    @apply bg-orange-500 inline-block w-full rounded-xl py-4 text-(length:--text-preset-500) text-neutral-900 font-extrabold;
   }
 }
 
